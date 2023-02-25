@@ -8,7 +8,7 @@ import (
 
 var numTotalPlayer = 28
 var numVipTable = 3
-var numVip = 4
+var numVip = 2
 var numVipLimit = 4
 
 var numTotalRound = 5
