@@ -1,15 +1,13 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
-	"os"
 )
 
-var numTotalPlayer = 28
-var numVipTable = 3
-var numVip = 2
-var numVipLimit = 4
+var numTotalPlayer = 20
+var numVipTable = 0
+var numVip = 0
+var numVipLimit = 10
 
 var numTotalRound = 5
 var numTotalTable = numTotalPlayer / 4
@@ -22,6 +20,7 @@ var bolFoundBalance = false
 
 const MAX_PLAYER = 50
 var flagLiveTable = [MAX_PLAYER]int{}
+var bolHasLiveTable = true
 var collisions = [MAX_PLAYER][MAX_PLAYER]int{}
 var countVipTable = [MAX_PLAYER]int{}
 var foundCountVipTable = [MAX_PLAYER]int{}
@@ -69,7 +68,7 @@ func dfsTablePlayer(round int, step int, beginStep int, endStep int, endTable in
 	for idxTable:=0;idxTable < endTable;idxTable++ {
 
 		// live table
-		if idxTable == 0 && flagLiveTable[curPlayer] == 1 {
+		if idxTable == 0 && flagLiveTable[curPlayer] == 1 && bolHasLiveTable {
 			continue
 		}
 
@@ -247,19 +246,6 @@ func printTable()  {
 }
 
 
-func saveToFile()  {
-	var fileName = "table1.txt"
-	var byteContent []byte
-	byteContent , _ = json.Marshal(123)
-	os.WriteFile(fileName, byteContent, 0644)
-}
-
-func loadFromFile() {
-	var fileName = "table1.txt"
-	var byteContent []byte
-	byteContent,_ = os.ReadFile(fileName)
-	fmt.Println(byteContent)
-}
 
 func validateFoundTable() bool {
 	var bolValid = true
@@ -324,8 +310,5 @@ func main()  {
 	}
 
 	printTable()
-	printCountTable()
-
-	//saveToFile()
-	//loadFromFile()
+	//printCountTable()
 }
